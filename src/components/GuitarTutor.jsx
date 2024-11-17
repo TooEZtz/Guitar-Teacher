@@ -8,7 +8,7 @@ const App = () => {
     const [isLoading, setIsLoading] = useState(false);
 
 
-    const genAI = new GoogleGenerativeAI("AIzaSyCDIdX1lDo2hdWho8q5nY6JKtDg0Cb8zwk");
+    const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_GEN_AI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 
