@@ -20,6 +20,7 @@
     "react-router-dom": "^6.28.0",
     "react-speech-recognition": "^3.10.0",
     "regenerator-runtime": "^0.14.1",
+    "remix": "^2.14.0",
     "speech-recognition": "^0.0.1"
   },
   "devDependencies": {
