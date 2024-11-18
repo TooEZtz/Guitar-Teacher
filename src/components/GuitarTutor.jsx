@@ -9,7 +9,7 @@ const GuitarTutor = () => {
   const [isActive, setIsActive] = useState(false);
   const [userChoice, setUserChoice] = useState("");
   const [conversationHistory, setConversationHistory] = useState([]);
-  const genAI = new GoogleGenerativeAI("AIzaSyDCywE6KFR6q2qeZClgoO2nZoKRtMeBYH8");
+  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_API_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
   const synth = window.speechSynthesis;
 
