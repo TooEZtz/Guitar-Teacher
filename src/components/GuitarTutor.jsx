@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import UI from "../UI"; // Import the UI component
+import UI from "../UI";
 
 const GuitarTutor = () => {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
   const [isListening, setIsListening] = useState(false);
-  const [isActive, setIsActive] = useState(false); // To track if the app is active
-  const [userChoice, setUserChoice] = useState(""); // To store chord or song choice
-  const [conversationHistory, setConversationHistory] = useState([]); // Store conversation
-  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_API_KEY);
+  const [isActive, setIsActive] = useState(false);
+  const [userChoice, setUserChoice] = useState("");
+  const [conversationHistory, setConversationHistory] = useState([]);
+  const genAI = new GoogleGenerativeAI("AIzaSyDCywE6KFR6q2qeZClgoO2nZoKRtMeBYH8");
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
   const synth = window.speechSynthesis;
+
   const speak = (text, callback) => {
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.onend = callback; // Callback after speech ends
+
+
+    const voices = synth.getVoices();
+    utterance.voice = voices[101];
+    utterance.rate = 1;
+    utterance.onend = callback;
     synth.speak(utterance);
   };
+
 
   useEffect(() => {
 
@@ -35,14 +42,14 @@ const GuitarTutor = () => {
 
   const greetUser = () => {
     console.log("Greeting user...");
-    speak("Hi, Its your boy Ankit here. Ready to learn guitar today?", () => {
+    speak("Hey, what's Up!! Melody A I here. Welcome to Blind Melodies!! Feel the Strings, Hear the Chords, Play the Song!! ", () => {
       AskUser()
     });
   };
 
   const AskUser = () => {
     console.log("Greeting user...");
-    speak(" Tell me what would you like to learn , a chord or a song ?", () => {
+    speak(" Tell me what would you like to learn? a chord or a song ?", () => {
       startListening();
     });
   };
@@ -188,7 +195,7 @@ const GuitarTutor = () => {
       ]);
       speak(`You said: ${song}. Let me teach you how to play that song.`, () => {
         generateResponse("song", song, () => {
-          askToContinue(); // Continue asking if they want to learn more
+          askToContinue();
         });
       });
     };
@@ -221,9 +228,9 @@ const GuitarTutor = () => {
               for one string so thay have time to actuly follow the instruction. absolutely avoid using special charecterslike *** , . / \ [] # etc. 
               To teach them, we have a system that reads out whatever you reply with. Make sure that chords like Am C# are written as A minor C sharp.`
 
-          : `You are teaching guitar to a blind person. This is what they have requested: "${input}". To teach them, we have a system that reads out whatever you reply with.
-             Give the name of the chords in between the lyrics of the song where they are supposed to change chords.
-            Make sure that chords like Am C# are written as A minor C sharp.`;
+          : `You are teaching guitar to a blind person. This is what they have requested: "${input}". To teach them, we have a system that reads out whatever you reply with. absolutely avoid using special charecterslike *** , . / \ [] # etc. 
+             Give the name of the chords in between the lyrics of the song where they are supposed to change chords. To not make it too long. Give only for verse 1
+            Make sure that chords like Am C# are written as A minor C sharp. Also remember that you are the person speaking to the blind person`;
 
       const result = await model.generateContent(fullPrompt);
       const responseText = result.response.text();
@@ -233,11 +240,13 @@ const GuitarTutor = () => {
         { speaker: "Agent", text: responseText },
       ]);
       speak(responseText, () => {
-        askToContinue();
-        // Continue listening after the response
+
+        AskUser();
+
       }
+
       );
-      startListeningForContinuation();
+
     } catch (error) {
       console.error("Error generating response:", error);
       setResponse("An error occurred while fetching the response.");
@@ -245,68 +254,9 @@ const GuitarTutor = () => {
     }
   };
 
-  const startListeningForContinuation = () => {
-    console.log("Listening for next input...");
-    if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
-      alert("Speech Recognition API is not supported in your browser.");
-      return;
-    }
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
 
-    recognition.lang = "en-US";
-    recognition.interimResults = false;
-    recognition.continuous = false;
 
-    recognition.onstart = () => {
-      console.log("Listening for next input...");
-      setIsListening(true);
-    };
-
-    recognition.onresult = async (event) => {
-      const input = event.results[0][0].transcript;
-      console.log("User input received:", input);
-
-      if (input.toLowerCase().includes("stop") || input.toLowerCase().includes("no")) {
-        speak("Thanks for using Guitar Tutor.", () => {
-        });
-        return;
-      } else {
-        AskUser();
-        return;
-      }
-
-      // setConversationHistory((prevHistory) => [
-      //   ...prevHistory,
-      //   { speaker: "User", text: input },
-      // ]);
-      // speak(`You said: ${input}`, () => {
-      //   if (userChoice === "chord") {
-      //     chord();
-      //   } else {
-      //     song();
-      //   }
-      // });
-    };
-
-    recognition.onerror = (event) => {
-      console.error("Speech recognition error:", event.error);
-    };
-
-    recognition.onend = () => {
-      console.log("Listening ended.");
-      setIsListening(false);
-    };
-
-    recognition.start();
-  };
-
-  const askToContinue = () => {
-    speak("Would you like to learn another chord or song?", () => {
-      startListeningForContinuation();
-    });
-  };
 
   return (
     <div>
