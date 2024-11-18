@@ -1,5 +1,17 @@
-### Guitar Teacher For People with blindness
+**Blind Melodies** is an innovative app designed to teach blind people to play guitar. The app uses voice commands and advanced APIs to guide users in learning guitar chords and songs through text-to-speech responses.
 
+---
+
+## Features
+- Voice-activated learning experience
+- Guides users step-by-step in learning guitar chords or songs
+- Uses text-to-speech for seamless communication
+- Powered by the Gemini API for intelligent responses
+
+---
+
+
+### Guitar Teacher For People with blindness
 
 
 ## Getting Started
@@ -17,7 +29,7 @@ Before starting, ensure you have the following installed:
 1. Open your terminal (Command Prompt, PowerShell, etc.).
 2. Run the following command to copy the project to your machine:
    ```bash
-   git clone 
+   git clone https://github.com/TooEZtz/Guitar-Teacher.git
    
 # Navigate to the project folder:
 
@@ -45,3 +57,20 @@ After a few seconds, the terminal will display a local server link, usually some
 ➜  Local: http://localhost:5173/
 
 ctrl + click the above link
+
+
+# How to Use the App
+
+Press the spacebar to start the app.
+Follow the voice instructions to:
+        Learn a chord
+        Learn a song
+Respond with your preferences, and the app will guide you through the learning process.
+
+# Support
+
+If you encounter any issues, please contact qr84125@truman.edu.
+
+License
+
+# This project is licensed under the MIT License.
