@@ -9,6 +9,7 @@ const UI = () => {
                 <h1 className='text-[5rem] text-white font-extrabold font-main text-center'>Blind Melodies</h1>
 
             </div>
+            <h1 className='absolute z-4 text-[2rem] bottom-[10%] text-center text-white font-main w-full'>_________________Press any Key to Start_________________</h1>
         </div>
     );
 };

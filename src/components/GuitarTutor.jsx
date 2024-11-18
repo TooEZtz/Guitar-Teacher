@@ -25,10 +25,13 @@ const GuitarTutor = () => {
   };
 
 
+
+
   useEffect(() => {
 
+
     const handleKeyPress = (e) => {
-      if (e.code === "Space" && !isActive) {
+      if (!isActive) {
         setIsActive(true);
         greetUser();
       }
