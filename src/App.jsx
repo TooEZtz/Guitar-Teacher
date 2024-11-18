@@ -1,12 +1,19 @@
 import React from "react";
-import GuitarTutor from "./components/GuitarTutor"; // Adjust the path if needed
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import GuitarTutor from "./components/GuitarTutor";
+
 
 const App = () => {
   return (
-    <div className="App">
-
-      <GuitarTutor />
-    </div>
+    <Router>
+      <div className="app">
+        
+        <Routes>
+          <Route path="/" element={<GuitarTutor />} />
+        </Routes>
+        
+      </div>
+    </Router>
   );
 };
 
