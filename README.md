@@ -52,10 +52,10 @@ npm run dev
 ```
 .
 After a few seconds, the terminal will display a local server link, usually something like:
-
+```
   VITE vX.X.X  ready in XX ms
 ➜  Local: http://localhost:5173/
-
+```
 ctrl + click the above link
 
 
