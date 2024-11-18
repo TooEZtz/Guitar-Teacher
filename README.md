@@ -1,4 +1,9 @@
-**Blind Melodies** is an innovative app designed to teach blind people to play guitar. The app uses voice commands and advanced APIs to guide users in learning guitar chords and songs through text-to-speech responses.
+### Open the link in Google Chrome or Microsoft Edge to use the app.
+
+https://guitar-teacher.vercel.app/
+
+# Blind Melodies
+ is an innovative app designed to teach blind people to play guitar. The app uses voice commands and advanced APIs to guide users in learning guitar chords and songs through text-to-speech responses.
 
 ---
 
